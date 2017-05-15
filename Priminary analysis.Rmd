@@ -1,0 +1,22 @@
+---
+title: "初步資料分析"
+output: html_notebook
+---
+
+# 資料引入：
+轉譯自step1_data_011017_HT.do
+```{r}
+
+```
+
+# 初步迴歸
+1. 轉譯自step2_regression_011017_HT.do
+```{r}
+
+```
+
+2. 轉譯自step2_regression_011917_HT.do
+```{r}
+
+```
+
