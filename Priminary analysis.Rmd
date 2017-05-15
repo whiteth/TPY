@@ -6,8 +6,413 @@ output: html_notebook
 # 資料引入：
 轉譯自step1_data_011017_HT.do
 ```{r}
+rm(list=ls())
+library(haven)
+j3w1s_Dec2008 <- read_dta("C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/j3w1s_Dec2008.dta")
 
 ```
+
+* (重設檔案路徑至指定資料夾)
+*cd C:\Users\freshballoon\Dropbox\NTPU_MA\CYHsiao\data
+cd D:\Dropbox\NTPU_MA\CYHsiao\data
+
+* (開啟stata資料檔.dta)
+use "rawdata\j3w1s_Dec2008.dta", clear
+
+* (另存新檔)
+save "workdata\typ_2008_j3.dta", replace
+
+* (移除所有變數標籤)
+label drop _all
+
+*國中所在鄉鎮類型(分成都市非都市)
+rename asurban urban_school
+replace urban_school = 1 if urban_school == 2
+replace urban_school = 0 if urban_school >= 3
+
+* 性別 (變數更名)
+rename assex male
+* (變數內容變動)
+replace male = 0 if male == 2
+
+
+* 年齡 (建立變數)
+gen age = 89 - asbirth  /* 問卷年為2000(民國89年) */
+* (遺漏變數值應改為.)
+	replace age = . if asbirth == 99
+
+
+* 父親存歿
+rename asflife f_alive
+	replace f_alive = . if f_alive == 0 
+	replace f_alive = 0 if f_alive == 2
+
+
+* 父親同住
+rename asflive f_reside
+	replace f_reside = . if f_reside == 0
+	replace f_reside = 0 if f_reside == 2
+	
+* 父親教育程度
+gen f_edu = asfedu
+
+replace f_edu = . if f_edu == 0
+
+* the following three dummies imply that the base group of father education is those without any edu.
+*國中(含)以下
+gen f_edujuniorhigh = 1 if f_edu >= 1 & f_edu <= 2
+	replace f_edujuniorhigh = 0 if f_edu < 1 | f_edu > 2
+	replace f_edujuniorhigh = . if f_edu == 9
+*高中職
+gen f_eduseniorhigh = 1 if f_edu >= 3 & f_edu <= 4
+	replace f_eduseniorhigh = 0 if f_edu < 3 | f_edu > 4
+	replace f_eduseniorhigh = . if f_edu == 9
+*大學專科
+gen f_educollege = 1 if f_edu >= 5
+	replace f_educollege = 0 if f_edu < 5
+	replace f_educollege = . if f_edu == 9
+
+* 雿輻?冽??鈭???孵??璇?隞嗅遣蝡?霈????(e.g. rowtotal???霈???賊??璈怠?????蝮?)
+* rowtotal?????詨?????撌桀??: rowtotal??航歲???missing隞???????蝮?
+egen f_edu_check = rowtotal(f_edujuniorhigh f_eduseniorhigh f_educollege)
+gen f_edu_check_1 = f_edujuniorhigh + f_eduseniorhigh + f_educollege
+
+ta f_edu_check, mis
+
+ta f_edu_check f_edujuniorhigh, mis
+ta f_edu_check f_eduseniorhigh, mis
+ta f_edu_check f_educollege, mis
+
+* egen ?????嗡???????賣?亥岷
+*help egen
+
+* HT has checked the above. Check the following!
+
+* 母親存歿
+rename asmlife m_alive
+	replace m_alive = . if m_alive == 0 
+	replace m_alive = 0 if m_alive == 2
+
+* 母親同住
+rename asmlive m_reside
+	replace m_reside = . if m_reside == 0
+	replace m_reside = 0 if m_reside == 2
+
+
+*母親教育程度
+rename asmedu m_edu
+*國中(含)以下
+gen m_edujuniorhigh = 1 if m_edu >= 1 & m_edu <= 2
+	replace m_edujuniorhigh = 0 if m_edu < 1 | m_edu > 2
+	replace m_edujuniorhigh = . if m_edu == 9
+*高中職
+gen m_eduseniorhigh = 1 if m_edu >= 3 & m_edu <= 4
+	replace m_eduseniorhigh = 0 if m_edu < 3 | m_edu > 4
+	replace m_eduseniorhigh = . if m_edu == 9
+*大學專科
+gen m_educollege = 1 if m_edu >= 5
+	replace m_educollege = 0 if m_edu < 5
+	replace m_educollege = . if m_edu == 9
+
+
+* 家庭平均月收入(雙親)-取個分組中間值改寫為連續變數
+gen family_m_income = asincome
+	replace family_m_income = . if family_m_income == 99
+	replace family_m_income = 15000 if family_m_income == 1
+	replace family_m_income = 40000	if family_m_income == 2
+	replace family_m_income = 55000 if family_m_income == 3
+	replace family_m_income = 65000 if family_m_income == 4
+	replace family_m_income = 75000 if family_m_income == 5
+	replace family_m_income = 85000 if family_m_income == 6
+	replace family_m_income = 95000 if family_m_income == 7
+	replace family_m_income = 105000 if family_m_income == 8
+	replace family_m_income = 115000 if family_m_income == 9
+	replace family_m_income = 125000 if family_m_income == 10
+	replace family_m_income = 135000 if family_m_income == 11
+	replace family_m_income = 145000 if family_m_income == 12
+	replace family_m_income = 155000 if family_m_income == 13
+	
+	
+* 家庭平均月收入(雙親)-各分組改寫為虛擬變數
+*ta asincome, gen(family_m_income_)
+* (丟掉不需要的變數)
+*drop family_m_income_15
+
+
+*父親籍貫
+rename as112f00 f_who
+
+*父本省閩南
+gen f_ming = 1 if f_who == 1
+	replace f_ming = 0 if f_who >= 1
+	replace f_ming = . if f_who == 9
+
+*父客家
+gen f_hakka = 1 if f_who == 2
+	replace f_hakka = 0 if f_who <=1 | f_who >= 3
+	replace f_hakka = . if f_who == 9
+
+*父大陸
+gen f_dalou = 1 if f_who == 3
+	replace f_dalou = 0 if f_who <=2 | f_who >= 4
+	replace f_dalou = . if f_who == 9
+
+*父原住民
+gen f_yuan = 1 if f_who == 4
+	replace f_yuan = 0 if f_who <=3 | f_who >= 5
+	replace f_yuan = . if f_who == 9
+
+*父其他
+gen f_whoothers = 1 if f_who == 5
+	replace f_whoothers = 0 if f_who <=4 
+	replace f_whoothers = . if f_who == 9
+
+*母親籍貫
+rename as112m00 m_who
+
+*母本省閩南
+gen m_ming = 1 if m_who == 1
+	replace m_ming = 0 if m_who >= 1
+	replace m_ming = . if m_who == 9
+
+*母客家
+gen m_hakka = 1 if m_who == 2
+	replace m_hakka = 0 if m_who <=1 | m_who >= 3
+	replace m_hakka = . if m_who == 9
+
+*母大陸
+gen m_dalou = 1 if m_who == 3
+	replace m_dalou = 0 if m_who <=2 | m_who >= 4
+	replace m_dalou = . if m_who == 9
+
+*母原住民
+gen m_yuan = 1 if m_who == 4
+	replace m_yuan = 0 if m_who <=3 | m_who >= 5
+	replace m_yuan = . if m_who == 9
+
+*母其他
+gen m_whoothers = 1 if m_who == 5
+	replace m_whoothers = 0 if m_who <=4 
+	replace m_whoothers = . if m_who == 9
+
+
+*父母婚姻狀況
+rename as113000 parent_marriage
+*父母同住
+gen pa_together = 1 if parent_marriage == 1
+	replace pa_together = 0 if parent_marriage <= 2
+	replace pa_together = . if parent_marriage == 9
+	
+*父去世
+gen f_die = 1 if parent_marriage == 2
+	replace f_die = 0 if parent_marriage <= 1 | parent_marriage >= 3
+	replace f_die = . if parent_marriage == 9
+
+*母去世
+gen m_die = 1 if parent_marriage == 3
+	replace m_die = 0 if parent_marriage <= 2 | parent_marriage >= 4
+	replace m_die = . if parent_marriage == 9
+
+*父母離婚
+gen pa_break = 1 if parent_marriage == 4
+	replace pa_break = 0 if parent_marriage <= 3 | parent_marriage >= 5
+	replace pa_break = . if parent_marriage == 9
+
+*父母分居
+gen pa_liveapart = 1 if parent_marriage == 5
+	replace pa_liveapart = 0 if parent_marriage <= 4 | parent_marriage >= 6
+	replace pa_liveapart = . if parent_marriage == 9
+
+*父母離婚但同居
+gen pa_breaktoge = 1 if parent_marriage == 6
+	replace pa_breaktoge = 0 if parent_marriage <= 5 | parent_marriage >= 7
+	replace pa_breaktoge = . if parent_marriage == 9
+
+*其他
+gen pa_others = 1 if parent_marriage == 7
+	replace pa_others = 0 if parent_marriage <= 7
+	replace pa_others = . if parent_marriage == 9
+
+* do a rowtotal check of parental marriage status!	
+
+egen num_pa_break = sum(pa_break), by(asfedu)
+sort asfedu
+br num_pa_break pa_break asfedu
+ta num_pa_break asfedu, mis
+
+
+*目前與父母同住
+rename as114000 livewithwhom
+*與父母同住
+gen livewith_pa = 1 if livewithwhom == 1
+	replace livewith_pa = 0 if livewithwhom >= 2
+	replace livewith_pa = . if livewithwhom == 9
+
+*與父、繼母同住
+gen livewith_f_stepm = 1 if livewithwhom == 2
+	replace livewith_f_stepm = 0 if livewithwhom <= 1 | livewithwhom >= 3
+	replace livewith_f_stepm = . if livewithwhom == 9
+
+*與母、繼父同住
+gen livewith_m_stepf = 1 if livewithwhom == 3
+	replace livewith_m_stepf = 0 if livewithwhom <= 2 | livewithwhom >= 4
+	replace livewith_m_stepf = . if livewithwhom == 9
+
+*與父同住
+gen livewith_f = 1 if livewithwhom == 4
+	replace livewith_f = 0 if livewithwhom <= 3 | livewithwhom >= 5
+	replace livewith_f = . if livewithwhom == 9
+
+*與母同住
+gen livewith_m = 1 if livewithwhom == 5
+	replace livewith_m = 0 if livewithwhom <= 4 | livewithwhom >= 6
+	replace livewith_m = . if livewithwhom == 9
+
+*與其他人同住
+gen livewith_others = 1 if livewithwhom == 6
+	replace livewith_others = 0 if livewithwhom <= 5
+	replace livewith_others = . if livewithwhom == 9
+
+
+*曾經考試作弊
+rename as126000 cheat
+	replace cheat = 0 if cheat == 2
+	replace cheat = . if cheat == 9
+
+
+
+* 兄弟姊妹
+/*foreach v in a b c d e f {
+gen age_sib_`v' = . if as115`v'03 == 99
+	replace age_sib_`v' = 89 - as115`v'03
+}*/
+
+
+
+*國中至今，有無服用過鎮定劑、安眠藥、強力膠、有機溶劑FM2"神仙水MDMA、安非他命等
+rename as225000 drug
+	replace drug = 0 if drug == 1
+	replace drug = 1 if drug >= 2
+
+*過去一年有無逃家
+rename as244b01 leavehome
+	replace leavehome = . if leavehome == 9
+	replace leavehome = 0 if leavehome == 1
+	replace leavehome = 1 if leavehome >= 2
+
+*過去一年有無翹課
+rename as244b02 skipclass
+	replace skipclass = . if skipclass == 9
+	replace skipclass = 0 if skipclass == 1
+	replace skipclass = 1 if skipclass >= 2
+
+*過去一年有無故意破壞他人東西
+rename as244b03 damage
+	replace damage = . if damage == 9
+	replace damage = 0 if damage == 1
+	replace damage = 1 if damage >= 2
+
+*過去一年有偷東西
+rename as244b04 steal
+	replace steal = . if steal == 9
+	replace steal = 0 if steal == 1
+	replace steal = 1 if steal >= 2
+
+*過去一年有無發生性行為
+rename as244b05 sexualbehavior
+	replace sexualbehavior = . if sexualbehavior == 9
+	replace sexualbehavior = 0 if sexualbehavior == 1
+	replace sexualbehavior = 1 if sexualbehavior >= 2
+
+*過去一年有無打傷別人
+rename as244b06 wound
+	replace wound = . if wound == 9
+	replace wound = 0 if wound == 1
+	replace wound = 1 if wound >= 2
+
+*過去一年有無勒索別人
+rename as244b07 blackmail
+	replace blackmail = . if blackmail == 9
+	replace blackmail = 0 if blackmail == 1
+	replace blackmail = 1 if blackmail >= 2
+
+*過去一年有無抽菸或喝酒
+rename as244b08 smkingdrunk
+	replace smkingdrunk = . if smkingdrunk == 9
+	replace smkingdrunk = 0 if smkingdrunk == 1
+	replace smkingdrunk = 1 if smkingdrunk >= 2
+
+*過去一年有無嚼檳榔
+rename as244b09 betelnut
+	replace betelnut = . if betelnut == 9
+	replace betelnut = 0 if betelnut == 1
+	replace betelnut = 1 if betelnut >= 2
+
+*過去一年有無使用藥物(強力膠、速賜康、安非他命)
+rename as244b10 drug2
+	replace drug2 = . if drug2 == 9
+	replace drug2 = 0 if drug2 == 1
+	replace drug2 = 1 if drug2 >= 2
+
+*過去一年父母有無越來越常吵架
+rename as315007 quarrel
+	replace quarrel = . if quarrel == 9
+	replace quarrel = . if quarrel == 0
+	replace quarrel = 0 if quarrel == 2
+
+*過去一年父或母不在家的時間有無越來越多
+rename as315008 fmnothome
+	replace fmnothome = . if fmnothome == 9
+	replace fmnothome = 0 if fmnothome == 2
+
+*過去一年開始抽菸、吸毒或吸毒
+rename as315012 smokingdrunkdrug
+	replace smokingdrunkdrug = . if smokingdrunkdrug == 9
+	replace smokingdrunkdrug = 0 if smokingdrunkdrug == 2
+
+*過去一年父或母去世
+rename as315019 fmdie
+	replace fmdie = . if fmdie == 9
+	replace fmdie = 0 if fmdie == 2
+
+
+* siblings
+sum as116a01 as116b01 as116c01 as116d01 as116e01
+ta as116a01, mis
+ta as116b01, mis
+ta as116c01, mis
+ta as116d01, mis
+ta as116e01, mis
+ta as116a01 as116b01, mis
+ta as116a01 if as116b01 == 5, mis
+
+* should drop those survey answers that don't make sense, for example:
+drop if as116a01 == 5 & (as116b01 == 1 | as116b01 == 2)
+
+
+* (變數分類)
+global x " urban_school male age "
+
+global structure " f_alive f_reside m_alive m_reside f_who f_ming f_hakka f_dalou f_yuan f_whoothers m_who m_ming m_hakka m_dalou m_yuan m_whoothers "
+
+global edu " f_edu f_edujuniorhigh f_eduseniorhigh f_educollege m_edu m_edujuniorhigh m_eduseniorhigh m_educollege "
+
+global income " family_m_income "
+
+global marriage " parent_marriage pa_together f_die m_die pa_break pa_liveapart pa_breaktoge pa_others "
+
+global livewith " livewithwhom livewith_pa livewith_f_stepm livewith_m_stepf livewith_f livewith_m livewith_others "
+
+global y " cheat drug leavehome skipclass damage steal sexualbehavior wound blackmail smkingdrunk betelnut drug2 quarrel fmnothome smokingdrunkdrug fmdie "
+
+* (保留回歸分析需要使用的變數)
+
+keep $x $structure $edu $income $marriage $livewith $y
+
+
+* (另存整理好的資料檔)
+save "workdata\typ_2000_j3_done.dta", replace
+
 
 # 初步迴歸
 1. 轉譯自step2_regression_011017_HT.do
