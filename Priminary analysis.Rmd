@@ -24,34 +24,84 @@ save "workdata\typ_2008_j3.dta", replace
 
 * (移除所有變數標籤)
 label drop _all
+```{r}
+library(dplyr)
+j3w1s_Dec2008%>%select(asurban,aslocation,assex,asbirth,asflife,asflive,asfedu,
+                       asmlife,asmlive,asmedu,asincome,as112f00,as112m00,
+                       as113000,as114000,as116a01,as116a02,as116a03,as116a04,
+                       as116a05,as116a06,as116b01,as116b02,as116b03,as116b04,
+                       as116b05,as116b06,as116c01,as116c02,as116c03,as116c04,
+                       as116c05,as116c06,as116d01,as116d02,as116d03,as116d04,
+                       as116d05,as116d06,as116e01,as116e02,as116e03,as116e04,
+                       as116e05,as116e06,as116f01,as116f02,as116f03,as116f04,
+                       as116f05,as116f06,as126000,as225000,as244b01,
+                       as244b02,as244b03,as244b04,as244b05,as244b06,as244b07,
+                       as244b08,as244b09,as244b10,as315003,as315007,
+                       as315012,as315015,as315019)->j3
 
+```
 *國中所在鄉鎮類型(分成都市非都市)
 rename asurban urban_school
 replace urban_school = 1 if urban_school == 2
 replace urban_school = 0 if urban_school >= 3
+```{r}
 
+urbanshool <-  j3$asurban<=3
+
+
+```
+
+*國中所在地的地區分層(台北、新北、宜蘭)
+
+```{r}
+
+locationschool <- factor(j3$aslocation, levels = c(1,2,3), labels = c("TP","NTP","IL"))
+
+```
 * 性別 (變數更名)
 rename assex male
 * (變數內容變動)
 replace male = 0 if male == 2
 
+```{r}
+male <- j3$assex==1
+
+```
 
 * 年齡 (建立變數)
 gen age = 89 - asbirth  /* 問卷年為2000(民國89年) */
 * (遺漏變數值應改為.)
 	replace age = . if asbirth == 99
+```{r}
+
+j3%>%filter(asbirth!=99)->j3
+age <- 89-j3$asbirth
+
+```
 
 
 * 父親存歿
 rename asflife f_alive
 	replace f_alive = . if f_alive == 0 
 	replace f_alive = 0 if f_alive == 2
+```{r}
+j3%>%filter(asflife!=0)->j3
+f_alive <- j3$asflife == 1
+
+```
 
 
 * 父親同住
 rename asflive f_reside
 	replace f_reside = . if f_reside == 0
 	replace f_reside = 0 if f_reside == 2
+```{r}
+
+j3%>%filter(asflive!=0)->j3
+f_reside <- j3$asflive == 1
+
+```
+
 	
 * 父親教育程度
 gen f_edu = asfedu
@@ -71,9 +121,26 @@ gen f_eduseniorhigh = 1 if f_edu >= 3 & f_edu <= 4
 gen f_educollege = 1 if f_edu >= 5
 	replace f_educollege = 0 if f_edu < 5
 	replace f_educollege = . if f_edu == 9
+```{r}
 
-* 雿輻?冽??鈭???孵??璇?隞嗅遣蝡?霈????(e.g. rowtotal???霈???賊??璈怠?????蝮?)
-* rowtotal?????詨?????撌桀??: rowtotal??航歲???missing隞???????蝮?
+j3%>%filter(asfedu!=9)%>%filter(asfedu!=0)->j3
+
+j3$asfedu[j3$asfedu=="4"]<-"3"
+j3$asfedu[j3$asfedu=="6"]<-"5"
+
+j3$asfedu[j3$asfedu=="1"]<-"ele"
+j3$asfedu[j3$asfedu=="2"]<-"jun"
+j3$asfedu[j3$asfedu=="3"]<-"sen"
+j3$asfedu[j3$asfedu=="5"]<-"uni"
+j3$asfedu[j3$asfedu=="7"]<-"gra"
+j3$asfedu[j3$asfedu=="8"]<-"unedu"
+
+f_edu <- j3$asfedu
+
+```
+
+* 使用某些特定條件建立變數(e.g. rowtotal做變數間橫向加總)
+* rowtotal與相加的差別: rowtotal可跳過missing仍做加總
 egen f_edu_check = rowtotal(f_edujuniorhigh f_eduseniorhigh f_educollege)
 gen f_edu_check_1 = f_edujuniorhigh + f_eduseniorhigh + f_educollege
 
@@ -83,21 +150,31 @@ ta f_edu_check f_edujuniorhigh, mis
 ta f_edu_check f_eduseniorhigh, mis
 ta f_edu_check f_educollege, mis
 
-* egen ?????嗡???????賣?亥岷
+* egen 的其他功能查詢
 *help egen
 
 * HT has checked the above. Check the following!
+
 
 * 母親存歿
 rename asmlife m_alive
 	replace m_alive = . if m_alive == 0 
 	replace m_alive = 0 if m_alive == 2
-
+```{r}
+j3%>%filter(asmlife!=0)->j3
+m_alive <- j3$asmlife == 1
+```
 * 母親同住
 rename asmlive m_reside
 	replace m_reside = . if m_reside == 0
 	replace m_reside = 0 if m_reside == 2
 
+```{r}
+
+j3%>%filter(asmlive!=0)->j3
+m_reside <- j3$asmlive == 1
+
+```
 
 *母親教育程度
 rename asmedu m_edu
@@ -114,6 +191,23 @@ gen m_educollege = 1 if m_edu >= 5
 	replace m_educollege = 0 if m_edu < 5
 	replace m_educollege = . if m_edu == 9
 
+```{r}
+
+j3%>%filter(asmedu!=9)%>%filter(asmedu!=0)->j3
+
+j3$asmedu[j3$asmedu=="4"]<-"3"
+j3$asmedu[j3$asmedu=="6"]<-"5"
+
+j3$asmedu[j3$asmedu=="1"]<-"ele"
+j3$asmedu[j3$asmedu=="2"]<-"jun"
+j3$asmedu[j3$asmedu=="3"]<-"sen"
+j3$asmedu[j3$asmedu=="5"]<-"uni"
+j3$asmedu[j3$asmedu=="7"]<-"gra"
+j3$asmedu[j3$asmedu=="8"]<-"unedu"
+
+m_edu <- j3$asmedu
+
+```
 
 * 家庭平均月收入(雙親)-取個分組中間值改寫為連續變數
 gen family_m_income = asincome
@@ -131,7 +225,29 @@ gen family_m_income = asincome
 	replace family_m_income = 135000 if family_m_income == 11
 	replace family_m_income = 145000 if family_m_income == 12
 	replace family_m_income = 155000 if family_m_income == 13
-	
+
+
+```{r}
+
+j3%>%filter(asincome!=99)->j3
+j3$asincome<-as.numeric(j3$asincome)
+j3$asincome[j3$asincome==1]<-15000
+j3$asincome[j3$asincome==2]<-45000
+j3$asincome[j3$asincome==3]<-55000
+j3$asincome[j3$asincome==4]<-65000
+j3$asincome[j3$asincome==5]<-75000
+j3$asincome[j3$asincome==6]<-85000
+j3$asincome[j3$asincome==7]<-95000
+j3$asincome[j3$asincome==8]<-105000
+j3$asincome[j3$asincome==9]<-115000
+j3$asincome[j3$asincome==10]<-125000
+j3$asincome[j3$asincome==11]<-135000
+j3$asincome[j3$asincome==12]<-145000
+j3$asincome[j3$asincome==13]<-155000
+
+income_mon <- j3$asincome
+
+```	
 	
 * 家庭平均月收入(雙親)-各分組改寫為虛擬變數
 *ta asincome, gen(family_m_income_)
@@ -167,6 +283,20 @@ gen f_whoothers = 1 if f_who == 5
 	replace f_whoothers = 0 if f_who <=4 
 	replace f_whoothers = . if f_who == 9
 
+```{r}
+
+j3%>%filter(as112f00!=9)->j3
+j3$as112f00[j3$as112f00=="1"]<-"ming"
+j3$as112f00[j3$as112f00=="2"]<-"hakka"
+j3$as112f00[j3$as112f00=="3"]<-"dalou"
+j3$as112f00[j3$as112f00=="4"]<-"yuan"
+j3$as112f00[j3$as112f00=="5"]<-"others"
+
+f_nativep <- j3$as112f00
+
+```
+
+
 *母親籍貫
 rename as112m00 m_who
 
@@ -195,6 +325,19 @@ gen m_whoothers = 1 if m_who == 5
 	replace m_whoothers = 0 if m_who <=4 
 	replace m_whoothers = . if m_who == 9
 
+```{r}
+
+j3%>%filter(as112m00!=9)->j3
+
+j3$as112m00[j3$as112m00=="1"]<-"ming"
+j3$as112m00[j3$as112m00=="2"]<-"hakka"
+j3$as112m00[j3$as112m00=="3"]<-"dalou"
+j3$as112m00[j3$as112m00=="4"]<-"yuan"
+j3$as112m00[j3$as112m00=="5"]<-"others"
+
+m_nativep <- j3$as112m00
+
+```
 
 *父母婚姻狀況
 rename as113000 parent_marriage
@@ -240,6 +383,20 @@ sort asfedu
 br num_pa_break pa_break asfedu
 ta num_pa_break asfedu, mis
 
+```{r}
+j3%>%filter(as113000!=9)->j3
+
+j3$as113000[j3$as113000=="1"]<-"together"
+j3$as113000[j3$as113000=="2"]<-"f_dei"
+j3$as113000[j3$as113000=="3"]<-"m_die"
+j3$as113000[j3$as113000=="4"]<-"divorce"
+j3$as113000[j3$as113000=="5"]<-"Separation"
+j3$as113000[j3$as113000=="6"]<-"divorcetoge"
+j3$as113000[j3$as113000=="7"]<-"others"
+
+pa_marrige <- j3$as113000
+
+```
 
 *目前與父母同住
 rename as114000 livewithwhom
@@ -274,11 +431,19 @@ gen livewith_others = 1 if livewithwhom == 6
 	replace livewith_others = . if livewithwhom == 9
 
 
-*曾經考試作弊
-rename as126000 cheat
-	replace cheat = 0 if cheat == 2
-	replace cheat = . if cheat == 9
+```{r}
+j3%>%filter(as114000!=9)->j3
 
+j3$as114000[j3$as114000=="1"]<-"parents"
+j3$as114000[j3$as114000=="2"]<-"dadstepm"
+j3$as114000[j3$as114000=="3"]<-"momstepf"
+j3$as114000[j3$as114000=="4"]<-"dad"
+j3$as114000[j3$as114000=="5"]<-"mom"
+j3$as114000[j3$as114000=="6"]<-"others"
+
+livewithwhom <- j3$as114000
+
+```
 
 
 * 兄弟姊妹
@@ -286,95 +451,6 @@ rename as126000 cheat
 gen age_sib_`v' = . if as115`v'03 == 99
 	replace age_sib_`v' = 89 - as115`v'03
 }*/
-
-
-
-*國中至今，有無服用過鎮定劑、安眠藥、強力膠、有機溶劑FM2"神仙水MDMA、安非他命等
-rename as225000 drug
-	replace drug = 0 if drug == 1
-	replace drug = 1 if drug >= 2
-
-*過去一年有無逃家
-rename as244b01 leavehome
-	replace leavehome = . if leavehome == 9
-	replace leavehome = 0 if leavehome == 1
-	replace leavehome = 1 if leavehome >= 2
-
-*過去一年有無翹課
-rename as244b02 skipclass
-	replace skipclass = . if skipclass == 9
-	replace skipclass = 0 if skipclass == 1
-	replace skipclass = 1 if skipclass >= 2
-
-*過去一年有無故意破壞他人東西
-rename as244b03 damage
-	replace damage = . if damage == 9
-	replace damage = 0 if damage == 1
-	replace damage = 1 if damage >= 2
-
-*過去一年有偷東西
-rename as244b04 steal
-	replace steal = . if steal == 9
-	replace steal = 0 if steal == 1
-	replace steal = 1 if steal >= 2
-
-*過去一年有無發生性行為
-rename as244b05 sexualbehavior
-	replace sexualbehavior = . if sexualbehavior == 9
-	replace sexualbehavior = 0 if sexualbehavior == 1
-	replace sexualbehavior = 1 if sexualbehavior >= 2
-
-*過去一年有無打傷別人
-rename as244b06 wound
-	replace wound = . if wound == 9
-	replace wound = 0 if wound == 1
-	replace wound = 1 if wound >= 2
-
-*過去一年有無勒索別人
-rename as244b07 blackmail
-	replace blackmail = . if blackmail == 9
-	replace blackmail = 0 if blackmail == 1
-	replace blackmail = 1 if blackmail >= 2
-
-*過去一年有無抽菸或喝酒
-rename as244b08 smkingdrunk
-	replace smkingdrunk = . if smkingdrunk == 9
-	replace smkingdrunk = 0 if smkingdrunk == 1
-	replace smkingdrunk = 1 if smkingdrunk >= 2
-
-*過去一年有無嚼檳榔
-rename as244b09 betelnut
-	replace betelnut = . if betelnut == 9
-	replace betelnut = 0 if betelnut == 1
-	replace betelnut = 1 if betelnut >= 2
-
-*過去一年有無使用藥物(強力膠、速賜康、安非他命)
-rename as244b10 drug2
-	replace drug2 = . if drug2 == 9
-	replace drug2 = 0 if drug2 == 1
-	replace drug2 = 1 if drug2 >= 2
-
-*過去一年父母有無越來越常吵架
-rename as315007 quarrel
-	replace quarrel = . if quarrel == 9
-	replace quarrel = . if quarrel == 0
-	replace quarrel = 0 if quarrel == 2
-
-*過去一年父或母不在家的時間有無越來越多
-rename as315008 fmnothome
-	replace fmnothome = . if fmnothome == 9
-	replace fmnothome = 0 if fmnothome == 2
-
-*過去一年開始抽菸、吸毒或吸毒
-rename as315012 smokingdrunkdrug
-	replace smokingdrunkdrug = . if smokingdrunkdrug == 9
-	replace smokingdrunkdrug = 0 if smokingdrunkdrug == 2
-
-*過去一年父或母去世
-rename as315019 fmdie
-	replace fmdie = . if fmdie == 9
-	replace fmdie = 0 if fmdie == 2
-
 
 * siblings
 sum as116a01 as116b01 as116c01 as116d01 as116e01
@@ -388,6 +464,367 @@ ta as116a01 if as116b01 == 5, mis
 
 * should drop those survey answers that don't make sense, for example:
 drop if as116a01 == 5 & (as116b01 == 1 | as116b01 == 2)
+
+```{r}
+
+
+
+```
+
+
+
+*曾經考試作弊
+rename as126000 cheat
+	replace cheat = 0 if cheat == 2
+	replace cheat = . if cheat == 9
+```{r}
+table(j3$as126000)
+
+j3%>%filter(as126000!=9)->j3
+j3$as126000[j3$as126000==2]<-0
+
+cheat <- j3$as126000
+table(cheat)
+```
+
+
+*國中至今，有無服用過鎮定劑、安眠藥、強力膠、有機溶劑FM2、神仙水MDMA、安非他命等
+rename as225000 drug
+	replace drug = 0 if drug == 1
+	replace drug = 1 if drug >= 2
+	
+```{r}
+table(j3$as225000)
+
+j3$as225000[j3$as225000==1]<-0
+j3$as225000[j3$as225000==2]<-1
+j3$as225000[j3$as225000==3]<-1
+j3$as225000[j3$as225000==4]<-1
+
+drug <- j3$as225000
+table(drug)
+
+```
+
+*過去一年有無逃家
+rename as244b01 leavehome
+	replace leavehome = . if leavehome == 9
+	replace leavehome = 0 if leavehome == 1
+	replace leavehome = 1 if leavehome >= 2
+
+```{r}
+table(j3$as244b01)
+j3%>%filter(as244b01!=9)->j3
+
+j3$as244b01[j3$as244b01==1]<-0
+j3$as244b01[j3$as244b01==2]<-1
+j3$as244b01[j3$as244b01==3]<-1
+j3$as244b01[j3$as244b01==4]<-1
+j3$as244b01[j3$as244b01==5]<-1
+
+leavehome <- j3$as244b01
+table(leavehome)
+```
+
+*過去一年有無翹課
+rename as244b02 skipclass
+	replace skipclass = . if skipclass == 9
+	replace skipclass = 0 if skipclass == 1
+	replace skipclass = 1 if skipclass >= 2
+
+
+```{r}
+table(j3$as244b02)
+j3%>%filter(as244b02!=9)->j3
+
+j3$as244b02[j3$as244b02==1]<-0
+j3$as244b02[j3$as244b02==2]<-1
+j3$as244b02[j3$as244b02==3]<-1
+j3$as244b02[j3$as244b02==4]<-1
+j3$as244b02[j3$as244b02==5]<-1
+
+skipclass <- j3$as244b02
+table(skipclass)
+```
+
+*過去一年有無故意破壞他人東西
+rename as244b03 damage
+	replace damage = . if damage == 9
+	replace damage = 0 if damage == 1
+	replace damage = 1 if damage >= 2
+
+
+```{r}
+
+table(j3$as244b03)
+j3%>%filter(as244b03!=9)->j3
+
+j3$as244b03[j3$as244b03==1]<-0
+j3$as244b03[j3$as244b03==2]<-1
+j3$as244b03[j3$as244b03==3]<-1
+j3$as244b03[j3$as244b03==4]<-1
+j3$as244b03[j3$as244b03==5]<-1
+
+damage <- j3$as244b03
+table(damage)
+
+```
+
+*過去一年有偷東西
+rename as244b04 steal
+	replace steal = . if steal == 9
+	replace steal = 0 if steal == 1
+	replace steal = 1 if steal >= 2
+
+
+```{r}
+
+table(j3$as244b04)
+j3%>%filter(as244b04!=9)->j3
+
+j3$as244b04[j3$as244b04==1]<-0
+j3$as244b04[j3$as244b04==2]<-1
+j3$as244b04[j3$as244b04==3]<-1
+j3$as244b04[j3$as244b04==4]<-1
+j3$as244b04[j3$as244b04==5]<-1
+
+steal <- j3$as244b04
+table(steal)
+
+```
+
+*過去一年有無發生性行為
+rename as244b05 sexualbehavior
+	replace sexualbehavior = . if sexualbehavior == 9
+	replace sexualbehavior = 0 if sexualbehavior == 1
+	replace sexualbehavior = 1 if sexualbehavior >= 2
+
+
+```{r}
+
+table(j3$as244b05)
+j3%>%filter(as244b05!=9)->j3
+
+j3$as244b05[j3$as244b05==1]<-0
+j3$as244b05[j3$as244b05==2]<-1
+j3$as244b05[j3$as244b05==3]<-1
+j3$as244b05[j3$as244b05==4]<-1
+j3$as244b05[j3$as244b05==5]<-1
+
+sexualbehavior <- j3$as244b05
+table(sexualbehavior)
+
+```
+
+*過去一年有無打傷別人
+rename as244b06 wound
+	replace wound = . if wound == 9
+	replace wound = 0 if wound == 1
+	replace wound = 1 if wound >= 2
+
+```{r}
+
+table(j3$as244b06)
+j3%>%filter(as244b06!=9)->j3
+
+j3$as244b06[j3$as244b06==1]<-0
+j3$as244b06[j3$as244b06==2]<-1
+j3$as244b06[j3$as244b06==3]<-1
+j3$as244b06[j3$as244b06==4]<-1
+j3$as244b06[j3$as244b06==5]<-1
+
+wound <- j3$as244b06
+table(wound)
+
+
+```
+
+*過去一年有無勒索別人
+rename as244b07 blackmail
+	replace blackmail = . if blackmail == 9
+	replace blackmail = 0 if blackmail == 1
+	replace blackmail = 1 if blackmail >= 2
+
+
+```{r}
+
+table(j3$as244b07)
+j3%>%filter(as244b07!=9)->j3
+
+j3$as244b07[j3$as244b07==1]<-0
+j3$as244b07[j3$as244b07==2]<-1
+j3$as244b07[j3$as244b07==3]<-1
+j3$as244b07[j3$as244b07==4]<-1
+j3$as244b07[j3$as244b07==5]<-1
+
+blackmail <- j3$as244b07
+table(blackmail)
+
+
+```
+
+*過去一年有無抽菸或喝酒
+rename as244b08 smkingdrunk
+	replace smkingdrunk = . if smkingdrunk == 9
+	replace smkingdrunk = 0 if smkingdrunk == 1
+	replace smkingdrunk = 1 if smkingdrunk >= 2
+
+
+```{r}
+
+table(j3$as244b08)
+j3%>%filter(as244b08!=9)->j3
+
+j3$as244b08[j3$as244b08==1]<-0
+j3$as244b08[j3$as244b08==2]<-1
+j3$as244b08[j3$as244b08==3]<-1
+j3$as244b08[j3$as244b08==4]<-1
+j3$as244b08[j3$as244b08==5]<-1
+
+smokingdrunk <- j3$as244b08
+table(smokingdrunk)
+
+
+```
+
+*過去一年有無嚼檳榔
+rename as244b09 betelnut
+	replace betelnut = . if betelnut == 9
+	replace betelnut = 0 if betelnut == 1
+	replace betelnut = 1 if betelnut >= 2
+
+```{r}
+
+table(j3$as244b09)
+j3%>%filter(as244b09!=9)->j3
+
+j3$as244b09[j3$as244b09==1]<-0
+j3$as244b09[j3$as244b09==2]<-1
+j3$as244b09[j3$as244b09==3]<-1
+j3$as244b09[j3$as244b09==4]<-1
+j3$as244b09[j3$as244b09==5]<-1
+
+betelnut <- j3$as244b09
+table(betelnut)
+
+
+```
+
+*過去一年有無使用藥物(強力膠、速賜康、安非他命)
+rename as244b10 drug2
+	replace drug2 = . if drug2 == 9
+	replace drug2 = 0 if drug2 == 1
+	replace drug2 = 1 if drug2 >= 2
+
+```{r}
+
+table(j3$as244b10)
+j3%>%filter(as244b10!=9)->j3
+
+j3$as244b10[j3$as244b10==1]<-0
+j3$as244b10[j3$as244b10==2]<-1
+j3$as244b10[j3$as244b10==3]<-1
+j3$as244b10[j3$as244b10==4]<-1
+j3$as244b10[j3$as244b10==5]<-1
+
+drug2 <- j3$as244b10
+table(drug2)
+
+
+```
+
+*過去一年父母有無越來越常吵架
+rename as315007 quarrel
+	replace quarrel = . if quarrel == 9
+	replace quarrel = . if quarrel == 0
+	replace quarrel = 0 if quarrel == 2
+
+
+```{r}
+table(j3$as315007)
+j3%>%filter(as315007!=9)%>%filter(as315007!=0)->j3
+j3$as315007[j3$as315007==1]<-0
+j3$as315007[j3$as315007==2]<-1
+
+paquarrel <- j3$as315007
+table(paquarrel)
+
+```
+
+*過去一年我逃家了
+
+
+```{r}
+table(j3$as315015)
+j3%>%filter(as315015!=9)->j3
+j3$as315015[j3$as315015==2]<-0
+
+fleehome <- j3$as315015
+table(fleehome)
+
+```
+
+
+
+*過去一年開始抽菸、吸毒或吸毒
+rename as315012 smokingdrunkdrug
+	replace smokingdrunkdrug = . if smokingdrunkdrug == 9
+	replace smokingdrunkdrug = 0 if smokingdrunkdrug == 2
+
+```{r}
+
+table(j3$as315012)
+j3%>%filter(as315012!=9)->j3
+j3$as315012[j3$as315012==2]<-0
+
+smokingdrunkdrug <- j3$as315012
+table(smokingdrunkdrug)
+
+
+```
+
+
+
+*過去一年父或母去世
+rename as315019 fmdie
+	replace fmdie = . if fmdie == 9
+	replace fmdie = 0 if fmdie == 2
+```{r}
+
+table(j3$as315019)
+j3%>%filter(as315019!=9)->j3
+j3$as315019[j3$as315019==2]<-0
+
+fmdie <- j3$as315019
+table(fmdie)
+
+```
+
+
+
+
+
+
+
+綜合以上被解釋變數
+
+```{r}
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
 
 
 * (變數分類)
