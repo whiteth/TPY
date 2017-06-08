@@ -7,8 +7,14 @@ output: html_notebook
 轉譯自step1_data_011017_HT.do
 ```{r}
 rm(list=ls())
+
+working.path<-"/Users/Martin/Desktop/Dropbox/TYP/CYHsiao/data/rawdata/" #老師的
+#working.path<-"C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/" #學生的
+
 library(haven)
-j3w1s_Dec2008 <- read_dta("C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/j3w1s_Dec2008.dta")
+j3w1s_Dec2008 <- read_dta(paste0(working.path,"j3w1s_Dec2008.dta"))
+  
+#read_dta("C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/j3w1s_Dec2008.dta")
 
 ```
 
