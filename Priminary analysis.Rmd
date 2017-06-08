@@ -12,9 +12,28 @@ working.path<-"/Users/Martin/Desktop/Dropbox/TYP/CYHsiao/data/rawdata/" #老師�
 #working.path<-"C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/" #學生的
 
 library(haven)
-j3w1s_Dec2008 <- read_dta(paste0(working.path,"j3w1s_Dec2008.dta"))
-  
-#read_dta("C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/j3w1s_Dec2008.dta")
+j3w1s_Dec2008 <- read_dta(paste0(working.path,"j3w1s_Dec2008.dta"), encoding="BIG5")
+```
+
+定義可處理NA的函數
+Input:
+x 是變數列
+na_string 是文字字串，定義code book中所有要轉成NA的情況
+```{r}
+replace_with_na_numeric<-function(x,na_string){
+  # 處理完變數會是 數值
+  x<-as.character(x)
+  na_loc<-which(x %in% na_string)
+  x[na_loc]<-NA
+  return(as.numeric(x))
+}
+replace_with_na_character<-function(x,na_string){
+  # 處理完變數會是 字串
+  x<-as.character(x)
+  na_loc<-which(x %in% na_string)
+  x[na_loc]<-NA
+  return(x)
+}
 
 ```
 
@@ -51,10 +70,7 @@ rename asurban urban_school
 replace urban_school = 1 if urban_school == 2
 replace urban_school = 0 if urban_school >= 3
 ```{r}
-
 urbanshool <-  j3$asurban<=3
-
-
 ```
 
 *國中所在地的地區分層(台北、新北、宜蘭)
@@ -79,10 +95,13 @@ gen age = 89 - asbirth  /* 問卷年為2000(民國89年) */
 * (遺漏變數值應改為.)
 	replace age = . if asbirth == 99
 ```{r}
+library(magrittr)                
+j3$asbirth %<>% replace_with_na_numeric(c("99"))
+j3$asbirth %>% as.factor %>% table(useNA="always")
 
-j3%>%filter(asbirth!=99)->j3
-age <- 89-j3$asbirth
+j3 %<>% mutate(age=89-asbirth)
 
+#j3$age <- 89-j3$asbirth
 ```
 
 
@@ -91,9 +110,9 @@ rename asflife f_alive
 	replace f_alive = . if f_alive == 0 
 	replace f_alive = 0 if f_alive == 2
 ```{r}
-j3%>%filter(asflife!=0)->j3
-f_alive <- j3$asflife == 1
-
+j3$asflife %>% as.factor %>% table(useNA="always")
+j3$asflife %<>% replace_with_na_character(c("0"))
+j3$asflife %>% as.factor %>% table(useNA="always")
 ```
 
 
@@ -457,6 +476,87 @@ livewithwhom <- j3$as114000
 gen age_sib_`v' = . if as115`v'03 == 99
 	replace age_sib_`v' = 89 - as115`v'03
 }*/
+
+```{r}
+
+library(plyr)
+
+j3$as116a01 %<>% replace_with_na_character(c("0","9"))
+j3$as116a01 %>% as.factor %>% table(useNA="always")
+j3$as116a01 %<>% revalue(c("1"="1","2"="1","5"="0"))
+
+j3$as116b01 %<>% replace_with_na_character(c("0","9"))
+j3$as116b01 %>% as.factor %>% table(useNA="always")
+j3$as116b01 %<>% revalue(c("1"="1","2"="1","3"="-1","4"="-1","5"="0"))
+
+j3$as116c01 %<>% replace_with_na_character(c("0","9"))
+j3$as116c01 %>% as.factor %>% table(useNA="always")
+j3$as116c01 %<>% revalue(c("1"="1","2"="1","3"="-1","4"="-1","5"="0"))
+
+j3$as116d01 %<>% replace_with_na_character(c("0","9"))
+j3$as116d01 %>% as.factor %>% table(useNA="always")
+j3$as116d01 %<>% revalue(c("1"="1","2"="1","3"="-1","4"="-1","5"="0"))
+
+j3$as116e01 %<>% replace_with_na_character(c("0","9"))
+j3$as116e01 %>% as.factor %>% table(useNA="always")
+j3$as116e01 %<>% revalue(c("1"="1","2"="1","3"="-1","4"="-1","5"="0"))
+
+j3$as116f01 %<>% replace_with_na_character(c("0","9"))
+j3$as116f01 %>% as.factor %>% table(useNA="always")
+j3$as116f01 %<>% revalue(c("1"="1","2"="1","3"="-1","4"="-1","5"="0"))
+
+valid_condition_matrix<-matrix(0,6,6); valid_condition_matrix
+valid_condition_matrix[upper.tri(valid_condition_matrix)]<--1
+valid_condition_matrix[lower.tri(valid_condition_matrix)]<-1
+
+q_list<-rev(paste0("as116",letters[1:6],"01"))
+rev_q_list<-rev(q_list)
+rev_q_list
+q_list
+#i<-1
+j3$child_count<-0
+j3$count.type<-2
+for(i in 1:dim(j3)[1]){
+  max_count<-6; count.type=2
+  # 確認最多有幾個小孩
+  for(j in q_list){
+    ifelse(is.na(j3[i,j]),{max_count=max_count-1},max_count)
+  }
+
+  answer_vector <- as.numeric(j3[i,rev_q_list[1:max_count]]) # 問卷回答結果
+  possible_answer<- valid_condition_matrix[1:max_count,1:max_count] #允許的合理答案可能
+  #child_count=0
+  match_logics<-c()
+  if(max_count==0){
+    child_count<-0 
+    count.type<-0 # 因數最多數時就產生不合理
+  }else{
+    # 檢查問卷回答結果 是否 屬於 合理答案範圍
+     for(k in 1:max_count){
+      if(max_count==1){
+      ifelse(prod(answer_vector==possible_answer[k])==1,
+             {match_logics[k]<-TRUE},
+             {match_logics[k]<-FALSE})
+      }else{
+        ifelse(prod(answer_vector==possible_answer[k,])==1,
+               {match_logics[k]<-TRUE},
+               {match_logics[k]<-FALSE})
+      }
+     }
+    # 若在合理範圍，child_count==max_count；否則，child_count==0
+    ifelse(any(match_logics),{child_count=max_count},
+           {child_count<-0;
+           count.type<-1}) #答案有矛盾)
+  }
+  # 存回資料集
+  j3$child_count[i]<-child_count
+  j3$count.type[i]<-count.type
+}
+table(j3$child_count)
+table(j3$count.type)
+```
+
+
 
 * siblings
 sum as116a01 as116b01 as116c01 as116d01 as116e01
