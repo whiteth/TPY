@@ -1,0 +1,32 @@
+---
+title: "資料說明"
+output: html_notebook
+---
+
+#資料來源
+```{r}
+rm(list=ls())
+load("j3.Rdata")
+```
+
+
+
+
+#變數定義
+
+```{r}
+library(knitr)
+names(j3)
+data.explanation<-data.frame(變數名稱=names(j3)[69:97],變數定義=rep("0",97-68))
+kable(data.explanation)
+library(dplyr)
+data.explanation$變數定義 %<>% as.character()
+data.explanation[data.explanation$變數名稱=="urbanshool","變數定義"] <-"都市學校：TRUE=學校在都市；FALSE=。。。。"
+
+
+kable(data.explanation)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
