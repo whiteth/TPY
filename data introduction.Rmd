@@ -8,7 +8,7 @@ output: html_notebook
 rm(list=ls())
 load("j3.Rdata")
 ```
-
+123
 
 
 
