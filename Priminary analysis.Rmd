@@ -8,8 +8,8 @@ output: html_notebook
 ```{r}
 rm(list=ls())
 
-working.path<-"/Users/Martin/Desktop/Dropbox/TYP/CYHsiao/data/rawdata/" #老師的
-#working.path<-"C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/" #學生的
+#working.path<-"/Users/Martin/Desktop/Dropbox/TYP/CYHsiao/data/rawdata/" #老師的
+working.path<-"C:/Users/freshballoon/Dropbox/Yuan/CYHsiao/data/rawdata/" #學生的
 
 library(haven)
 j3w1s_Dec2008 <- read_dta(paste0(working.path,"j3w1s_Dec2008.dta"), encoding="BIG5")
@@ -70,14 +70,14 @@ rename asurban urban_school
 replace urban_school = 1 if urban_school == 2
 replace urban_school = 0 if urban_school >= 3
 ```{r}
-urbanshool <-  j3$asurban<=3
+j3$urbanshool <-  j3$asurban<=3
 ```
 
 *國中所在地的地區分層(台北、新北、宜蘭)
 
 ```{r}
 
-locationschool <- factor(j3$aslocation, levels = c(1,2,3), labels = c("TP","NTP","IL"))
+j3$locationschool <- factor(j3$aslocation, levels = c(1,2,3), labels = c("TP","NTP","IL"))
 
 ```
 * 性別 (變數更名)
@@ -86,7 +86,7 @@ rename assex male
 replace male = 0 if male == 2
 
 ```{r}
-male <- j3$assex==1
+j3$male <- j3$assex==1
 
 ```
 
@@ -121,9 +121,9 @@ rename asflive f_reside
 	replace f_reside = . if f_reside == 0
 	replace f_reside = 0 if f_reside == 2
 ```{r}
-
-j3%>%filter(asflive!=0)->j3
-f_reside <- j3$asflive == 1
+j3$asflive %>% as.factor %>% table(useNA="always")
+j3$asflive %<>% replace_with_na_character(c("0"))
+j3$asflive %>% as.factor %>% table(useNA="always")
 
 ```
 
@@ -148,7 +148,9 @@ gen f_educollege = 1 if f_edu >= 5
 	replace f_educollege = . if f_edu == 9
 ```{r}
 
-j3%>%filter(asfedu!=9)%>%filter(asfedu!=0)->j3
+j3$asfedu %>% as.factor %>% table(useNA="always")
+j3$asfedu %<>% replace_with_na_character(c("0","9"))
+j3$asfedu %>% as.factor %>% table(useNA="always")
 
 j3$asfedu[j3$asfedu=="4"]<-"3"
 j3$asfedu[j3$asfedu=="6"]<-"5"
@@ -160,7 +162,10 @@ j3$asfedu[j3$asfedu=="5"]<-"uni"
 j3$asfedu[j3$asfedu=="7"]<-"gra"
 j3$asfedu[j3$asfedu=="8"]<-"unedu"
 
-f_edu <- j3$asfedu
+table(j3$asfedu)
+
+j3$f_edu <- j3$asfedu
+
 
 ```
 
@@ -186,8 +191,9 @@ rename asmlife m_alive
 	replace m_alive = . if m_alive == 0 
 	replace m_alive = 0 if m_alive == 2
 ```{r}
-j3%>%filter(asmlife!=0)->j3
-m_alive <- j3$asmlife == 1
+j3$asmlife %>% as.factor %>% table(useNA="always")
+j3$asmlife %<>% replace_with_na_character(c("0"))
+j3$asmlife %>% as.factor %>% table(useNA="always")
 ```
 * 母親同住
 rename asmlive m_reside
@@ -196,8 +202,9 @@ rename asmlive m_reside
 
 ```{r}
 
-j3%>%filter(asmlive!=0)->j3
-m_reside <- j3$asmlive == 1
+j3$asmlive %>% as.factor %>% table(useNA="always")
+j3$asmlive %<>% replace_with_na_character(c("0"))
+j3$asmlive %>% as.factor %>% table(useNA="always")
 
 ```
 
@@ -218,7 +225,9 @@ gen m_educollege = 1 if m_edu >= 5
 
 ```{r}
 
-j3%>%filter(asmedu!=9)%>%filter(asmedu!=0)->j3
+j3$asmedu %>% as.factor %>% table(useNA="always")
+j3$asmedu %<>% replace_with_na_character(c("0","9"))
+j3$asmedu %>% as.factor %>% table(useNA="always")
 
 j3$asmedu[j3$asmedu=="4"]<-"3"
 j3$asmedu[j3$asmedu=="6"]<-"5"
@@ -230,7 +239,9 @@ j3$asmedu[j3$asmedu=="5"]<-"uni"
 j3$asmedu[j3$asmedu=="7"]<-"gra"
 j3$asmedu[j3$asmedu=="8"]<-"unedu"
 
-m_edu <- j3$asmedu
+table(j3$asmedu)
+
+j3$m_edu <- j3$asmedu
 
 ```
 
@@ -254,7 +265,10 @@ gen family_m_income = asincome
 
 ```{r}
 
-j3%>%filter(asincome!=99)->j3
+j3$asincome %>% as.factor %>% table(useNA="always")
+j3$asincome %<>% replace_with_na_character(c("99"))
+j3$asincome %>% as.factor %>% table(useNA="always")
+
 j3$asincome<-as.numeric(j3$asincome)
 j3$asincome[j3$asincome==1]<-15000
 j3$asincome[j3$asincome==2]<-45000
@@ -269,6 +283,8 @@ j3$asincome[j3$asincome==10]<-125000
 j3$asincome[j3$asincome==11]<-135000
 j3$asincome[j3$asincome==12]<-145000
 j3$asincome[j3$asincome==13]<-155000
+
+table(j3$asincome)
 
 income_mon <- j3$asincome
 
@@ -310,14 +326,19 @@ gen f_whoothers = 1 if f_who == 5
 
 ```{r}
 
-j3%>%filter(as112f00!=9)->j3
+j3$as112f00 %>% as.factor %>% table(useNA="always")
+j3$as112f00 %<>% replace_with_na_character(c("9"))
+j3$as112f00 %>% as.factor %>% table(useNA="always")
+
 j3$as112f00[j3$as112f00=="1"]<-"ming"
 j3$as112f00[j3$as112f00=="2"]<-"hakka"
 j3$as112f00[j3$as112f00=="3"]<-"dalou"
 j3$as112f00[j3$as112f00=="4"]<-"yuan"
 j3$as112f00[j3$as112f00=="5"]<-"others"
 
-f_nativep <- j3$as112f00
+table(j3$as112f00)
+
+j3$f_nativep <- j3$as112f00
 
 ```
 
@@ -352,7 +373,9 @@ gen m_whoothers = 1 if m_who == 5
 
 ```{r}
 
-j3%>%filter(as112m00!=9)->j3
+j3$as112m00 %>% as.factor %>% table(useNA="always")
+j3$as112m00 %<>% replace_with_na_character(c("9"))
+j3$as112m00 %>% as.factor %>% table(useNA="always")
 
 j3$as112m00[j3$as112m00=="1"]<-"ming"
 j3$as112m00[j3$as112m00=="2"]<-"hakka"
@@ -360,7 +383,9 @@ j3$as112m00[j3$as112m00=="3"]<-"dalou"
 j3$as112m00[j3$as112m00=="4"]<-"yuan"
 j3$as112m00[j3$as112m00=="5"]<-"others"
 
-m_nativep <- j3$as112m00
+table(j3$as112m00)
+
+j3$m_nativep <- j3$as112m00
 
 ```
 
@@ -409,7 +434,9 @@ br num_pa_break pa_break asfedu
 ta num_pa_break asfedu, mis
 
 ```{r}
-j3%>%filter(as113000!=9)->j3
+j3$as113000 %>% as.factor %>% table(useNA="always")
+j3$as113000 %<>% replace_with_na_character(c("9"))
+j3$as113000 %>% as.factor %>% table(useNA="always")
 
 j3$as113000[j3$as113000=="1"]<-"together"
 j3$as113000[j3$as113000=="2"]<-"f_dei"
@@ -419,7 +446,9 @@ j3$as113000[j3$as113000=="5"]<-"Separation"
 j3$as113000[j3$as113000=="6"]<-"divorcetoge"
 j3$as113000[j3$as113000=="7"]<-"others"
 
-pa_marrige <- j3$as113000
+table(j3$as113000)
+
+j3$pa_marrige <- j3$as113000
 
 ```
 
@@ -457,7 +486,10 @@ gen livewith_others = 1 if livewithwhom == 6
 
 
 ```{r}
-j3%>%filter(as114000!=9)->j3
+j3$as114000 %>% as.factor %>% table(useNA="always")
+j3$as114000 %<>% replace_with_na_character(c("9"))
+j3$as114000 %>% as.factor %>% table(useNA="always")
+
 
 j3$as114000[j3$as114000=="1"]<-"parents"
 j3$as114000[j3$as114000=="2"]<-"dadstepm"
@@ -466,7 +498,9 @@ j3$as114000[j3$as114000=="4"]<-"dad"
 j3$as114000[j3$as114000=="5"]<-"mom"
 j3$as114000[j3$as114000=="6"]<-"others"
 
-livewithwhom <- j3$as114000
+table(j3$as114000)
+
+j3$livewithwhom <- j3$as114000
 
 ```
 
@@ -584,13 +618,15 @@ rename as126000 cheat
 	replace cheat = 0 if cheat == 2
 	replace cheat = . if cheat == 9
 ```{r}
-table(j3$as126000)
+j3$as126000 %>% as.factor %>% table(useNA="always")
+j3$as126000 %<>% replace_with_na_character(c("9"))
+j3$as126000 %>% as.factor %>% table(useNA="always")
 
-j3%>%filter(as126000!=9)->j3
 j3$as126000[j3$as126000==2]<-0
 
-cheat <- j3$as126000
-table(cheat)
+j3$cheat <- j3$as126000
+
+table(j3$cheat)
 ```
 
 
@@ -600,15 +636,17 @@ rename as225000 drug
 	replace drug = 1 if drug >= 2
 	
 ```{r}
-table(j3$as225000)
+j3$as225000 %>% as.factor %>% table(useNA="always")
+j3$as225000 %<>% replace_with_na_character(c("9"))
+j3$as225000 %>% as.factor %>% table(useNA="always")
 
 j3$as225000[j3$as225000==1]<-0
 j3$as225000[j3$as225000==2]<-1
 j3$as225000[j3$as225000==3]<-1
 j3$as225000[j3$as225000==4]<-1
 
-drug <- j3$as225000
-table(drug)
+j3$drug <- j3$as225000
+table(j3$drug)
 
 ```
 
@@ -619,8 +657,9 @@ rename as244b01 leavehome
 	replace leavehome = 1 if leavehome >= 2
 
 ```{r}
-table(j3$as244b01)
-j3%>%filter(as244b01!=9)->j3
+j3$as244b01 %>% as.factor %>% table(useNA="always")
+j3$as244b01 %<>% replace_with_na_character(c("9"))
+j3$as244b01 %>% as.factor %>% table(useNA="always")
 
 j3$as244b01[j3$as244b01==1]<-0
 j3$as244b01[j3$as244b01==2]<-1
@@ -628,8 +667,8 @@ j3$as244b01[j3$as244b01==3]<-1
 j3$as244b01[j3$as244b01==4]<-1
 j3$as244b01[j3$as244b01==5]<-1
 
-leavehome <- j3$as244b01
-table(leavehome)
+j3$leavehome <- j3$as244b01
+table(j3$leavehome)
 ```
 
 *過去一年有無翹課
@@ -640,8 +679,9 @@ rename as244b02 skipclass
 
 
 ```{r}
-table(j3$as244b02)
-j3%>%filter(as244b02!=9)->j3
+j3$as244b02 %>% as.factor %>% table(useNA="always")
+j3$as244b02 %<>% replace_with_na_character(c("9"))
+j3$as244b02 %>% as.factor %>% table(useNA="always")
 
 j3$as244b02[j3$as244b02==1]<-0
 j3$as244b02[j3$as244b02==2]<-1
@@ -649,8 +689,8 @@ j3$as244b02[j3$as244b02==3]<-1
 j3$as244b02[j3$as244b02==4]<-1
 j3$as244b02[j3$as244b02==5]<-1
 
-skipclass <- j3$as244b02
-table(skipclass)
+j3$skipclass <- j3$as244b02
+table(j3$skipclass)
 ```
 
 *過去一年有無故意破壞他人東西
@@ -662,8 +702,9 @@ rename as244b03 damage
 
 ```{r}
 
-table(j3$as244b03)
-j3%>%filter(as244b03!=9)->j3
+j3$as244b03 %>% as.factor %>% table(useNA="always")
+j3$as244b03 %<>% replace_with_na_character(c("9"))
+j3$as244b03 %>% as.factor %>% table(useNA="always")
 
 j3$as244b03[j3$as244b03==1]<-0
 j3$as244b03[j3$as244b03==2]<-1
@@ -671,8 +712,8 @@ j3$as244b03[j3$as244b03==3]<-1
 j3$as244b03[j3$as244b03==4]<-1
 j3$as244b03[j3$as244b03==5]<-1
 
-damage <- j3$as244b03
-table(damage)
+j3$damage <- j3$as244b03
+table(j3$damage)
 
 ```
 
@@ -685,8 +726,9 @@ rename as244b04 steal
 
 ```{r}
 
-table(j3$as244b04)
-j3%>%filter(as244b04!=9)->j3
+j3$as244b04 %>% as.factor %>% table(useNA="always")
+j3$as244b04 %<>% replace_with_na_character(c("9"))
+j3$as244b04 %>% as.factor %>% table(useNA="always")
 
 j3$as244b04[j3$as244b04==1]<-0
 j3$as244b04[j3$as244b04==2]<-1
@@ -694,8 +736,8 @@ j3$as244b04[j3$as244b04==3]<-1
 j3$as244b04[j3$as244b04==4]<-1
 j3$as244b04[j3$as244b04==5]<-1
 
-steal <- j3$as244b04
-table(steal)
+j3$steal <- j3$as244b04
+table(j3$steal)
 
 ```
 
@@ -708,8 +750,9 @@ rename as244b05 sexualbehavior
 
 ```{r}
 
-table(j3$as244b05)
-j3%>%filter(as244b05!=9)->j3
+j3$as244b05 %>% as.factor %>% table(useNA="always")
+j3$as244b05 %<>% replace_with_na_character(c("9"))
+j3$as244b05 %>% as.factor %>% table(useNA="always")
 
 j3$as244b05[j3$as244b05==1]<-0
 j3$as244b05[j3$as244b05==2]<-1
@@ -717,8 +760,8 @@ j3$as244b05[j3$as244b05==3]<-1
 j3$as244b05[j3$as244b05==4]<-1
 j3$as244b05[j3$as244b05==5]<-1
 
-sexualbehavior <- j3$as244b05
-table(sexualbehavior)
+j3$sexualbehavior <- j3$as244b05
+table(j3$sexualbehavior)
 
 ```
 
@@ -730,8 +773,9 @@ rename as244b06 wound
 
 ```{r}
 
-table(j3$as244b06)
-j3%>%filter(as244b06!=9)->j3
+j3$as244b06 %>% as.factor %>% table(useNA="always")
+j3$as244b06 %<>% replace_with_na_character(c("9"))
+j3$as244b06 %>% as.factor %>% table(useNA="always")
 
 j3$as244b06[j3$as244b06==1]<-0
 j3$as244b06[j3$as244b06==2]<-1
@@ -739,8 +783,8 @@ j3$as244b06[j3$as244b06==3]<-1
 j3$as244b06[j3$as244b06==4]<-1
 j3$as244b06[j3$as244b06==5]<-1
 
-wound <- j3$as244b06
-table(wound)
+j3$wound <- j3$as244b06
+table(j3$wound)
 
 
 ```
@@ -754,8 +798,9 @@ rename as244b07 blackmail
 
 ```{r}
 
-table(j3$as244b07)
-j3%>%filter(as244b07!=9)->j3
+j3$as244b07 %>% as.factor %>% table(useNA="always")
+j3$as244b07 %<>% replace_with_na_character(c("9"))
+j3$as244b07 %>% as.factor %>% table(useNA="always")
 
 j3$as244b07[j3$as244b07==1]<-0
 j3$as244b07[j3$as244b07==2]<-1
@@ -763,8 +808,8 @@ j3$as244b07[j3$as244b07==3]<-1
 j3$as244b07[j3$as244b07==4]<-1
 j3$as244b07[j3$as244b07==5]<-1
 
-blackmail <- j3$as244b07
-table(blackmail)
+j3$blackmail <- j3$as244b07
+table(j3$blackmail)
 
 
 ```
@@ -778,8 +823,9 @@ rename as244b08 smkingdrunk
 
 ```{r}
 
-table(j3$as244b08)
-j3%>%filter(as244b08!=9)->j3
+j3$as244b08 %>% as.factor %>% table(useNA="always")
+j3$as244b08 %<>% replace_with_na_character(c("9"))
+j3$as244b08 %>% as.factor %>% table(useNA="always")
 
 j3$as244b08[j3$as244b08==1]<-0
 j3$as244b08[j3$as244b08==2]<-1
@@ -787,8 +833,8 @@ j3$as244b08[j3$as244b08==3]<-1
 j3$as244b08[j3$as244b08==4]<-1
 j3$as244b08[j3$as244b08==5]<-1
 
-smokingdrunk <- j3$as244b08
-table(smokingdrunk)
+j3$smokingdrunk <- j3$as244b08
+table(j3$smokingdrunk)
 
 
 ```
@@ -801,8 +847,9 @@ rename as244b09 betelnut
 
 ```{r}
 
-table(j3$as244b09)
-j3%>%filter(as244b09!=9)->j3
+j3$as244b09 %>% as.factor %>% table(useNA="always")
+j3$as244b09 %<>% replace_with_na_character(c("9"))
+j3$as244b09 %>% as.factor %>% table(useNA="always")
 
 j3$as244b09[j3$as244b09==1]<-0
 j3$as244b09[j3$as244b09==2]<-1
@@ -810,8 +857,8 @@ j3$as244b09[j3$as244b09==3]<-1
 j3$as244b09[j3$as244b09==4]<-1
 j3$as244b09[j3$as244b09==5]<-1
 
-betelnut <- j3$as244b09
-table(betelnut)
+j3$betelnut <- j3$as244b09
+table(j3$betelnut)
 
 
 ```
@@ -824,8 +871,9 @@ rename as244b10 drug2
 
 ```{r}
 
-table(j3$as244b10)
-j3%>%filter(as244b10!=9)->j3
+j3$as244b10 %>% as.factor %>% table(useNA="always")
+j3$as244b10 %<>% replace_with_na_character(c("9"))
+j3$as244b10 %>% as.factor %>% table(useNA="always")
 
 j3$as244b10[j3$as244b10==1]<-0
 j3$as244b10[j3$as244b10==2]<-1
@@ -833,11 +881,27 @@ j3$as244b10[j3$as244b10==3]<-1
 j3$as244b10[j3$as244b10==4]<-1
 j3$as244b10[j3$as244b10==5]<-1
 
-drug2 <- j3$as244b10
-table(drug2)
+j3$drug2 <- j3$as244b10
+table(j3$drug2)
 
 
 ```
+*過去一年父母有無離婚或分居
+
+```{r}
+j3$as315003 %>% as.factor %>% table(useNA="always")
+j3$as315003 %<>% replace_with_na_character(c("0","9"))
+j3$as315003 %>% as.factor %>% table(useNA="always")
+
+j3$as315003[j3$as315003==2]<-0
+
+j3$divorce <- j3$as315003
+table(j3$divorce)
+
+
+```
+
+
 
 *過去一年父母有無越來越常吵架
 rename as315007 quarrel
@@ -847,13 +911,16 @@ rename as315007 quarrel
 
 
 ```{r}
-table(j3$as315007)
-j3%>%filter(as315007!=9)%>%filter(as315007!=0)->j3
-j3$as315007[j3$as315007==1]<-0
-j3$as315007[j3$as315007==2]<-1
 
-paquarrel <- j3$as315007
-table(paquarrel)
+j3$as315007 %>% as.factor %>% table(useNA="always")
+j3$as315007 %<>% replace_with_na_character(c("0","9"))
+j3$as315007 %>% as.factor %>% table(useNA="always")
+
+
+j3$as315007[j3$as315007==2]<-0
+
+j3$paquarrel <- j3$as315007
+table(j3$paquarrel)
 
 ```
 
@@ -861,12 +928,14 @@ table(paquarrel)
 
 
 ```{r}
-table(j3$as315015)
-j3%>%filter(as315015!=9)->j3
+j3$as315015 %>% as.factor %>% table(useNA="always")
+j3$as315015 %<>% replace_with_na_character(c("9"))
+j3$as315015 %>% as.factor %>% table(useNA="always")
+
 j3$as315015[j3$as315015==2]<-0
 
-fleehome <- j3$as315015
-table(fleehome)
+j3$fleehome <- j3$as315015
+table(j3$fleehome)
 
 ```
 
@@ -879,12 +948,14 @@ rename as315012 smokingdrunkdrug
 
 ```{r}
 
-table(j3$as315012)
-j3%>%filter(as315012!=9)->j3
+j3$as315012 %>% as.factor %>% table(useNA="always")
+j3$as315012 %<>% replace_with_na_character(c("9"))
+j3$as315012 %>% as.factor %>% table(useNA="always")
+
 j3$as315012[j3$as315012==2]<-0
 
-smokingdrunkdrug <- j3$as315012
-table(smokingdrunkdrug)
+j3$smokingdrunkdrug <- j3$as315012
+table(j3$smokingdrunkdrug)
 
 
 ```
@@ -897,12 +968,14 @@ rename as315019 fmdie
 	replace fmdie = 0 if fmdie == 2
 ```{r}
 
-table(j3$as315019)
-j3%>%filter(as315019!=9)->j3
+j3$as315019 %>% as.factor %>% table(useNA="always")
+j3$as315019 %<>% replace_with_na_character(c("9"))
+j3$as315019 %>% as.factor %>% table(useNA="always")
+
 j3$as315019[j3$as315019==2]<-0
 
-fmdie <- j3$as315019
-table(fmdie)
+j3$fmdie <- j3$as315019
+table(j3$fmdie)
 
 ```
 
@@ -916,7 +989,7 @@ table(fmdie)
 
 ```{r}
 
-
+j3 %<>% mutate(badbehavior=)
 
 
 
