@@ -17,11 +17,43 @@ load("j3.Rdata")
 ```{r}
 library(knitr)
 names(j3)
-data.explanation<-data.frame(變數名稱=names(j3)[69:97],變數定義=rep("0",97-68))
+data.explanation<-data.frame(變數名稱=names(j3)[69:102],變數定義=rep("0",102-68))
 kable(data.explanation)
 library(dplyr)
 data.explanation$變數定義 %<>% as.character()
-data.explanation[data.explanation$變數名稱=="urbanshool","變數定義"] <-"都市學校：TRUE=學校在都市；FALSE=。。。。"
+data.explanation[data.explanation$變數名稱=="urbanshool","變數定義"] <-"都市學校：TRUE=學校在都市；FALSE=學校不在都市"
+
+data.explanation[data.explanation$變數名稱=="locationschool","變數定義"] <-"學校地區(台北、新北、宜蘭)：TP=台北；NTP=新北；IL=宜蘭"
+
+data.explanation[data.explanation$變數名稱=="male","變數定義"] <-"性別：TRUE=男；FALSE=女"
+
+data.explanation[data.explanation$變數名稱=="age","變數定義"] <-"學生年齡"
+
+data.explanation[data.explanation$變數名稱=="f_life","變數定義"] <-"父親存歿：1=父親存；2=父親歿"
+
+data.explanation[data.explanation$變數名稱=="f_live","變數定義"] <-"是否與父親同住：1=與父親同住；2=與父親不同住"
+
+data.explanation[data.explanation$變數名稱=="f_edu","變數定義"] <-"父親教育程度：ele=父國小學歷；jun=父國中學歷；sen=父高中職學歷；jun=父大專院校學歷；gra=父研究所學藝；unedu=父未受教育"
+
+data.explanation[data.explanation$變數名稱=="m_life","變數定義"] <-"母親存歿：1=母親存；2=母親歿"
+
+data.explanation[data.explanation$變數名稱=="m_live","變數定義"] <-"是否與母親同住：1=與母親同住；2=與母親不同住"
+
+data.explanation[data.explanation$變數名稱=="m_edu","變數定義"] <-"母親教育程度：ele=母國小學歷；jun=母國中學歷；sen=母高中職學歷；jun=母大專院校學歷；gra=母研究所學歷；unedu=母未受教育"
+
+data.explanation[data.explanation$變數名稱=="income_mon","變數定義"] <-"家庭平均月收入(雙親)"
+
+data.explanation[data.explanation$變數名稱=="f_nativep","變數定義"] <-"父親籍貫：ming=父本省閩南人；hakka=父客家人；dalou=父各省大陸；yuan=父原住民；others=父其他"
+
+data.explanation[data.explanation$變數名稱=="m_nativep","變數定義"] <-"母親籍貫：ming=母本省閩南人；hakka=母客家人；dalou=母各省大陸；yuan=母原住民；others=母其他"
+
+data.explanation[data.explanation$變數名稱=="pa_marriage","變數定義"] <-"父母婚姻狀況：together=父母同住；f_dei=父親去世；m_die=母親去世；divorce=夫母離婚；Separation=父母分居；divorcetoge=父母離婚但同居；others=其他"
+
+data.explanation[data.explanation$變數名稱=="livewithwhom","變數定義"] <-"是否與父母同住：parents=與生父母均同住；dadstepm=與生父及繼母同住；momstepf=與生母及繼父同住；dad=與父親同住；mom=與母親同住；others=與其他人同住"
+
+
+
+
 
 
 kable(data.explanation)

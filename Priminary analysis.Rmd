@@ -71,6 +71,8 @@ replace urban_school = 1 if urban_school == 2
 replace urban_school = 0 if urban_school >= 3
 ```{r}
 j3$urbanshool <-  j3$asurban<=3
+table(j3$urbanshool)
+
 ```
 
 *國中所在地的地區分層(台北、新北、宜蘭)
@@ -113,6 +115,8 @@ rename asflife f_alive
 j3$asflife %>% as.factor %>% table(useNA="always")
 j3$asflife %<>% replace_with_na_character(c("0"))
 j3$asflife %>% as.factor %>% table(useNA="always")
+j3$asflife -> j3$f_life
+
 ```
 
 
@@ -124,6 +128,8 @@ rename asflive f_reside
 j3$asflive %>% as.factor %>% table(useNA="always")
 j3$asflive %<>% replace_with_na_character(c("0"))
 j3$asflive %>% as.factor %>% table(useNA="always")
+j3$asflive -> j3$f_live
+
 
 ```
 
@@ -194,6 +200,8 @@ rename asmlife m_alive
 j3$asmlife %>% as.factor %>% table(useNA="always")
 j3$asmlife %<>% replace_with_na_character(c("0"))
 j3$asmlife %>% as.factor %>% table(useNA="always")
+j3$asmlife -> j3$m_life
+
 ```
 * 母親同住
 rename asmlive m_reside
@@ -205,6 +213,7 @@ rename asmlive m_reside
 j3$asmlive %>% as.factor %>% table(useNA="always")
 j3$asmlive %<>% replace_with_na_character(c("0"))
 j3$asmlive %>% as.factor %>% table(useNA="always")
+j3$asmlive -> j3$m_live
 
 ```
 
@@ -286,7 +295,7 @@ j3$asincome[j3$asincome==13]<-155000
 
 table(j3$asincome)
 
-income_mon <- j3$asincome
+j3$income_mon <- j3$asincome
 
 ```	
 	
@@ -448,7 +457,7 @@ j3$as113000[j3$as113000=="7"]<-"others"
 
 table(j3$as113000)
 
-j3$pa_marrige <- j3$as113000
+j3$pa_marriage <- j3$as113000
 
 ```
 
@@ -605,11 +614,6 @@ ta as116a01 if as116b01 == 5, mis
 * should drop those survey answers that don't make sense, for example:
 drop if as116a01 == 5 & (as116b01 == 1 | as116b01 == 2)
 
-```{r}
-
-
-
-```
 
 
 
@@ -989,7 +993,8 @@ table(j3$fmdie)
 
 ```{r}
 
-j3 %<>% mutate(badbehavior=)
+
+save(j3, file="j3.Rdata")
 
 
 
