@@ -115,8 +115,11 @@ rename asflife f_alive
 j3$asflife %>% as.factor %>% table(useNA="always")
 j3$asflife %<>% replace_with_na_character(c("0"))
 j3$asflife %>% as.factor %>% table(useNA="always")
-j3$asflife -> j3$f_life
 
+j3$asflife[j3$asflife==2]<-0
+
+j3$asflife -> j3$f_life
+table(j3$f_life)
 ```
 
 
@@ -128,9 +131,12 @@ rename asflive f_reside
 j3$asflive %>% as.factor %>% table(useNA="always")
 j3$asflive %<>% replace_with_na_character(c("0"))
 j3$asflive %>% as.factor %>% table(useNA="always")
+
+j3$asflive[j3$asflive==2]<-0
+
 j3$asflive -> j3$f_live
 
-
+table(j3$f_live)
 ```
 
 	
@@ -200,6 +206,9 @@ rename asmlife m_alive
 j3$asmlife %>% as.factor %>% table(useNA="always")
 j3$asmlife %<>% replace_with_na_character(c("0"))
 j3$asmlife %>% as.factor %>% table(useNA="always")
+
+j3$asmlife[j3$asmlife==2]<-0
+
 j3$asmlife -> j3$m_life
 
 ```
@@ -213,6 +222,9 @@ rename asmlive m_reside
 j3$asmlive %>% as.factor %>% table(useNA="always")
 j3$asmlive %<>% replace_with_na_character(c("0"))
 j3$asmlive %>% as.factor %>% table(useNA="always")
+
+j3$asmlive[j3$asmlive==2]<-0
+
 j3$asmlive -> j3$m_live
 
 ```
@@ -945,7 +957,7 @@ table(j3$fleehome)
 
 
 
-*過去一年開始抽菸、吸毒或吸毒
+*過去一年開始抽菸、喝酒或吸毒
 rename as315012 smokingdrunkdrug
 	replace smokingdrunkdrug = . if smokingdrunkdrug == 9
 	replace smokingdrunkdrug = 0 if smokingdrunkdrug == 2

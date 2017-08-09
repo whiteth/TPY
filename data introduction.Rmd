@@ -29,15 +29,15 @@ data.explanation[data.explanation$變數名稱=="male","變數定義"] <-"性別
 
 data.explanation[data.explanation$變數名稱=="age","變數定義"] <-"學生年齡"
 
-data.explanation[data.explanation$變數名稱=="f_life","變數定義"] <-"父親存歿：1=父親存；2=父親歿"
+data.explanation[data.explanation$變數名稱=="f_life","變數定義"] <-"父親存歿：1=父親存；0=父親歿"
 
-data.explanation[data.explanation$變數名稱=="f_live","變數定義"] <-"是否與父親同住：1=與父親同住；2=與父親不同住"
+data.explanation[data.explanation$變數名稱=="f_live","變數定義"] <-"是否與父親同住：1=與父親同住；0=與父親不同住"
 
 data.explanation[data.explanation$變數名稱=="f_edu","變數定義"] <-"父親教育程度：ele=父國小學歷；jun=父國中學歷；sen=父高中職學歷；jun=父大專院校學歷；gra=父研究所學藝；unedu=父未受教育"
 
-data.explanation[data.explanation$變數名稱=="m_life","變數定義"] <-"母親存歿：1=母親存；2=母親歿"
+data.explanation[data.explanation$變數名稱=="m_life","變數定義"] <-"母親存歿：1=母親存；0=母親歿"
 
-data.explanation[data.explanation$變數名稱=="m_live","變數定義"] <-"是否與母親同住：1=與母親同住；2=與母親不同住"
+data.explanation[data.explanation$變數名稱=="m_live","變數定義"] <-"是否與母親同住：1=與母親同住；0=與母親不同住"
 
 data.explanation[data.explanation$變數名稱=="m_edu","變數定義"] <-"母親教育程度：ele=母國小學歷；jun=母國中學歷；sen=母高中職學歷；jun=母大專院校學歷；gra=母研究所學歷；unedu=母未受教育"
 
@@ -51,7 +51,41 @@ data.explanation[data.explanation$變數名稱=="pa_marriage","變數定義"] <-
 
 data.explanation[data.explanation$變數名稱=="livewithwhom","變數定義"] <-"是否與父母同住：parents=與生父母均同住；dadstepm=與生父及繼母同住；momstepf=與生母及繼父同住；dad=與父親同住；mom=與母親同住；others=與其他人同住"
 
+data.explanation[data.explanation$變數名稱=="child_count","變數定義"] <-"家庭小孩個數"
 
+data.explanation[data.explanation$變數名稱=="cheat","變數定義"] <-"曾經考試作弊：1=考試曾經作弊；0=考試不從作弊"
+
+data.explanation[data.explanation$變數名稱=="drog","變數定義"] <-"曾經服用過鎮定劑、安眠藥、強力膠、有機溶劑FM2、神仙水MDMA、安非他命等：1=曾經服用過；0=不曾服用過"
+
+data.explanation[data.explanation$變數名稱=="leavehome","變數定義"] <-"過去一年有無逃家：1=有逃過家；0=無逃過家"
+
+data.explanation[data.explanation$變數名稱=="skipclass","變數定義"] <-"過去一年有無翹課：1=有翹過課；0=無翹過課"
+
+data.explanation[data.explanation$變數名稱=="damage","變數定義"] <-"過去一年有無故意破壞他人東西：1=有破壞過；0=無破壞過"
+
+data.explanation[data.explanation$變數名稱=="steal","變數定義"] <-"過去一年有偷東西：1=有偷過東西；0=無偷過東西"
+
+data.explanation[data.explanation$變數名稱=="sexualbehavior","變數定義"] <-"過去一年有無發生性行為：1=有發生性行為；0=無發生性行為"
+
+data.explanation[data.explanation$變數名稱=="wound","變數定義"] <-"過去一年有無打傷別人：1=有打傷別人；0=無打傷別人"
+
+data.explanation[data.explanation$變數名稱=="blackmail","變數定義"] <-"過去一年有無勒索別人：1=有勒索別人；0=無勒索別人"
+
+data.explanation[data.explanation$變數名稱=="smkingdrunk","變數定義"] <-"過去一年有無抽菸或喝酒：1=有抽菸或喝酒；0=無抽菸或喝酒"
+
+data.explanation[data.explanation$變數名稱=="betelnut","變數定義"] <-"過去一年有無嚼檳榔：1=有嚼檳榔；0=無嚼檳榔"
+
+data.explanation[data.explanation$變數名稱=="drug2","變數定義"] <-"過去一年有無使用藥物(強力膠、速賜康、安非他命)：1=有使用藥物；0=無使用藥物"
+
+data.explanation[data.explanation$變數名稱=="divorce","變數定義"] <-"過去一年父母有無離婚或分居：1=有離婚或分居；0=無離婚或分居"
+
+data.explanation[data.explanation$變數名稱=="paquarrel","變數定義"] <-"過去一年父母有無越來越常吵架：1=父母有越來越常吵架；0=父母無越來越吵架"
+
+data.explanation[data.explanation$變數名稱=="fleehome","變數定義"] <-"過去一年我逃家了：1=有逃家；0=無逃家"
+
+data.explanation[data.explanation$變數名稱=="smokingdrunkdrug","變數定義"] <-"過去一年開始抽菸、喝酒或吸毒：1=有抽菸、喝酒或吸毒；0=無抽菸、喝酒或吸毒"
+
+data.explanation[data.explanation$變數名稱=="fmdie","變數定義"] <-"過去一年父或母去世：1=有父或母去世；0=無父或母去世"
 
 
 
