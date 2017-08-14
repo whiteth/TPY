@@ -1,0 +1,78 @@
+---
+title: "青少人困擾與背景關連"
+output: html_notebook
+---
+
+#資料來源、載入所需套件
+```{r}
+rm(list=ls())
+load("j3.Rdata")
+
+library(magrittr)
+library(knitr)
+library(dplyr)
+```
+
+### cheat vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態))-> j4
+
+
+```
+
+### cheat vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+### cheat vs male 
+以下均依cheat vs locationschool程式碼，但把A、B變名依以下定義改變, 名的部份會有''號:  
+
+A變-cheat
+A名-'cheat'
+B變-male
+B名-'male'
+
+
+```{r}
+j3 %>% group_by(B變) %>%
+  summarise(問題比例=mean(as.numeric(A變),na.rm=TRUE),
+            問題類別=A名,
+            背景分群依據=B名) %>%
+  rename(背景分群狀態=B名) %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+以下類推所有cheat可能背景交叉組合
+
+...
+
+接著移到下個青少年問題：drug
+### drug vs urbanshool
+A變-drug
+A名-'drug'
+B變-urbanshool
+B名-'urbanshool'
+```{r}
+j3 %>% group_by(B變) %>%
+  summarise(問題比例=mean(as.numeric(A變),na.rm=TRUE),
+            問題類別=A名,
+            背景分群依據=B名) %>%
+  rename(背景分群狀態=B名) %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+請依順做完所有問題與背景組合
