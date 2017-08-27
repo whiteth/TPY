@@ -46,18 +46,197 @@ B名-'male'
 
 
 ```{r}
-j3 %>% group_by(B變) %>%
-  summarise(問題比例=mean(as.numeric(A變),na.rm=TRUE),
-            問題類別=A名,
-            背景分群依據=B名) %>%
-  rename(背景分群狀態=B名) %>% 
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
   mutate(背景分群狀態=as.character(背景分群狀態)) %>%
   rbind(.,j4) -> j4
 ```
 
 以下類推所有cheat可能背景交叉組合
 
-...
+### cheat vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### cheat vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(cheat),na.rm=TRUE),
+            問題類別='cheat',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
 
 接著移到下個青少年問題：drug
 ### drug vs urbanshool
@@ -65,14 +244,2660 @@ A變-drug
 A名-'drug'
 B變-urbanshool
 B名-'urbanshool'
-```{r}
-j3 %>% group_by(B變) %>%
+###j3 %>% group_by(B變) %>%
   summarise(問題比例=mean(as.numeric(A變),na.rm=TRUE),
             問題類別=A名,
             背景分群依據=B名) %>%
   rename(背景分群狀態=B名) %>% 
   mutate(背景分群狀態=as.character(背景分群狀態)) %>%
   rbind(.,j4) -> j4
+
+### drug vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
 ```
 
-請依順做完所有問題與背景組合
+### drug vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### drug vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### drug vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(drug),na.rm=TRUE),
+            問題類別='drug',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+### leavehome vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+### leavehome vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### leavehome vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### leavehome vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### leavehome vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(leavehome),na.rm=TRUE),
+            問題類別='leavehome',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+
+### skipclass vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### skipclass vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### skipclass vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### skipclass vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### skipclass vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(skipclass),na.rm=TRUE),
+            問題類別='skipclass',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### damage vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### damage vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### damage vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### damage vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(damage),na.rm=TRUE),
+            問題類別='damage',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+
+### steal vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### steal vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### steal vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### steal vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### steal vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(steal),na.rm=TRUE),
+            問題類別='steal',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+### sexualbehavior vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### sexualbehavior vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### sexualbehavior vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### sexualbehavior vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### sexualbehavior vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(sexualbehavior),na.rm=TRUE),
+            問題類別='sexualbehavior',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+### wound vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### wound vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### wound vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### wound vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### wound vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(wound),na.rm=TRUE),
+            問題類別='wound',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+
+### blackmail vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### blackmail vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### blackmail vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### blackmail vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### blackmail vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(blackmail),na.rm=TRUE),
+            問題類別='blackmail',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+
+### smokingdrunk vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### smokingdrunk vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### smokingdrunk vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### smokingdrunk vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### smokingdrunk vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(smokingdrunk),na.rm=TRUE),
+            問題類別='smokingdrunk',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+### betelnut vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### betelnut vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### betelnut vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### betelnut vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### betelnut vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(betelnut),na.rm=TRUE),
+            問題類別='betelnut',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+
+### drug2 vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### drug2 vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### drug2 vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### drug2 vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### drug2 vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(drug2),na.rm=TRUE),
+            問題類別='drug2',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
+
+### fleehome vs. urbanshool
+```{r}
+j3 %>% group_by(urbanshool) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='urbanshool') %>%
+  rename(背景分群狀態='urbanshool') %>%
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+
+```
+
+### fleehome vs locationschool
+```{r}
+j3 %>% group_by(locationschool) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='locationschool') %>%
+  rename(背景分群狀態='locationschool') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### fleehome vs male 
+```{r}
+j3 %>% group_by(male) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='male') %>%
+  rename(背景分群狀態='male') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+```
+
+
+### fleehome vs age
+```{r}
+j3 %>% group_by(age) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='age') %>%
+  rename(背景分群狀態='age') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs f_life
+```{r}
+j3 %>% group_by(f_life) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='f_life') %>%
+  rename(背景分群狀態='f_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs f_live
+```{r}
+j3 %>% group_by(f_live) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='f_live') %>%
+  rename(背景分群狀態='f_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs f_edu
+```{r}
+j3 %>% group_by(f_edu) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='f_edu') %>%
+  rename(背景分群狀態='f_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs m_life
+```{r}
+j3 %>% group_by(m_life) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='m_life') %>%
+  rename(背景分群狀態='m_life') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs m_live
+```{r}
+j3 %>% group_by(m_live) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='m_live') %>%
+  rename(背景分群狀態='m_live') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs m_edu
+```{r}
+j3 %>% group_by(m_edu) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='m_edu') %>%
+  rename(背景分群狀態='m_edu') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs income_mon
+```{r}
+j3 %>% group_by(income_mon) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='income_mon') %>%
+  rename(背景分群狀態='income_mon') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs f_nativep
+```{r}
+j3 %>% group_by(f_nativep) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='f_nativep') %>%
+  rename(背景分群狀態='f_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs m_nativep
+```{r}
+j3 %>% group_by(m_nativep) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='m_nativep') %>%
+  rename(背景分群狀態='m_nativep') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs pa_marriage
+```{r}
+j3 %>% group_by(pa_marriage) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='pa_marriage') %>%
+  rename(背景分群狀態='pa_marriage') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs livewithwhom
+```{r}
+j3 %>% group_by(livewithwhom) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='livewithwhom') %>%
+  rename(背景分群狀態='livewithwhom') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs child_count
+```{r}
+j3 %>% group_by(child_count) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='child_count') %>%
+  rename(背景分群狀態='child_count') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs divorce
+```{r}
+j3 %>% group_by(divorce) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='divorce') %>%
+  rename(背景分群狀態='divorce') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+### fleehome vs paquarrel
+```{r}
+j3 %>% group_by(paquarrel) %>%
+  summarise(問題比例=mean(as.numeric(fleehome),na.rm=TRUE),
+            問題類別='fleehome',
+            背景分群依據='paquarrel') %>%
+  rename(背景分群狀態='paquarrel') %>% 
+  mutate(背景分群狀態=as.character(背景分群狀態)) %>%
+  rbind(.,j4) -> j4
+
+
+```
+
+
+
